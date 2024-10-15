@@ -3,12 +3,12 @@ import itertools
 import argparse
 
 # 定义命令行参数解析
-parser = argparse.ArgumentParser(description="Generate folders based on provided moi, it, and NrOfTimes values.")
+parser = argparse.ArgumentParser(description="Generate folders based on provided moi, it, and batch.")
 
 # 添加命令行参数
 parser.add_argument('--moi', nargs='+', required=True, help='List of MOI values, separated by space.')
 parser.add_argument('--it', nargs='+', required=True, help='List of IT values, separated by space.')
-parser.add_argument('--times', nargs='+', required=True, help='List of Number of Experiments, separated by space.')
+parser.add_argument('--batch', nargs='+', required=True, help='List of Batch of Experiments, separated by space.')
 
 # 解析命令行参数
 args = parser.parse_args()
@@ -20,7 +20,7 @@ args = parser.parse_args()
 # NrOfTimes = ["1", "2", "3","4"]
 
 # 获取所有可能的组合
-combinations = itertools.product(args.moi, args.it, args.times)
+combinations = itertools.product(args.moi, args.it, args.batch)
 
 # 定义创建文件夹的根目录
 root_directory = "./generated_folders"
