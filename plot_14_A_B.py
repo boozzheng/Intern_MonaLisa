@@ -168,10 +168,22 @@ def plot_grouped_percentages(selected_values,grouped_percentages,output_dir):#
     percentages = list(grouped_percentages.values())
    
 
-    plt.figure(figsize=(10, 6))
-    plt.bar(labels, percentages, color='black')
+    plt.figure(figsize=(10, 8))
+    plt.rcParams.update({
+    'font.size': 18,         # 全局字体大小
+    'axes.labelsize': 24,    # 坐标轴标签字体大小
+    'axes.labelweight':'bold',
+    'axes.titlesize': 24,    # 标题字体大小
+    'axes.titleweight': 'bold',
+    'lines.linewidth': 3,    # 折线图线条粗细
+    'lines.markersize': 8,  # 数据点的大小
+    'errorbar.capsize': 5,  # 误差条帽子的大小
+    'legend.fontsize': 16,    # 图例字体大小
+    })
+    plt.bar(labels, percentages, color='slateblue')
     plt.xlabel('Number of bacteria/cell')
     plt.ylabel('Percentage of scored cells')
+    # plt.title('A')
     # plt.title(f'Value Distribution in {folder_name}')
 
     # 生成保存文件的路径和文件名
@@ -249,12 +261,23 @@ def prepare_data_for_swarmplot(PerOfCyt_groups):
 
 def plot_swarmplot(selected_values,df, output_dir):
     """使用 seaborn 绘制 swarmplot 并保存为 PNG 文件。"""
-    plt.figure(figsize=(10, 6))
-    sns.swarmplot(x='Group', y='PerOfCyt', data=df,color='black')#, palette='viridis'
+    plt.figure(figsize=(10, 8))
+    plt.rcParams.update({
+    'font.size': 18,         # 全局字体大小
+    'axes.labelsize': 24,    # 坐标轴标签字体大小
+    'axes.labelweight':'bold',
+    'axes.titlesize': 24,    # 标题字体大小
+    'axes.titleweight': 'bold',
+    'lines.linewidth': 3,    # 折线图线条粗细
+    'lines.markersize': 8,  # 数据点的大小
+    'errorbar.capsize': 5,  # 误差条帽子的大小
+    'legend.fontsize': 16,    # 图例字体大小
+    })
+    sns.swarmplot(x='Group', y='PerOfCyt', data=df,color='green')#, palette='viridis'
     # plt.title('Swarmplot of PerOfCyt by SalVac_SalCyt Range')
     plt.xlabel('Number of bacteria/cell')
     plt.ylabel(f'Cytosolic bacteria (% of total)')
-    
+    # plt.title('B')
     output_path = os.path.join(output_dir, f'Fig_4_14_B_{len(selected_values)}.png')
     plt.savefig(output_path)
     plt.close()

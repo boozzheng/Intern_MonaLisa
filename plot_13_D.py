@@ -128,19 +128,31 @@ def process_csv(input_cell_ruffling, input_sal_per_ruffle, output_file):
     # 绘制折线图
     plt.figure(figsize=(10, 8))
 
+    plt.rcParams.update({
+    'font.size': 18,         # 全局字体大小
+    'axes.labelsize': 22,    # 坐标轴标签字体大小
+    'axes.titlesize': 20,    # 标题字体大小
+    'axes.titleweight': 'bold',
+    'lines.linewidth': 3,    # 折线图线条粗细
+    'lines.markersize': 8,  # 数据点的大小
+    'errorbar.capsize': 5,  # 误差条帽子的大小
+    'legend.fontsize': 16,    # 图例字体大小
+    })
+
     # Misselwitz
     plt.errorbar(keys, y_origin, yerr = yerr_origin,fmt='-o',color = 'red',label='Experimental', capsize= 5 )
 
     # Simulation
-    plt.errorbar(keys, result_df.loc[4], yerr = result_df.loc[5], fmt='-o', color='black', label='Simulation', capsize=5)
+    plt.errorbar(keys, result_df.loc[4], yerr = yerr, fmt='-o', color='black', label='Simulation', capsize=5)
     
     # Extrapolation
-    plt.errorbar(keys, y_extrapolate,yerr = yerr_extrapolate, fmt = '--o', color='gray', label='Extrapolated Data')  # 预测数据
-   
+    plt.errorbar(keys, y_extrapolate,yerr = yerr_extrapolate, fmt = '--o', color='gray', label='Simulation, extrapolated from low MOI')  # 预测数据
+    
     
 
     plt.xlabel('m.o.i.')
     plt.ylabel('Number of invaded Salmonella per cell')
+    # plt.title("D")
     # plt.title('Line Plot with Error Bars')
     plt.legend()
     plt.grid(False)
@@ -164,7 +176,7 @@ def main():
     # 定义输入和输出文件路径
     input_cell_ruffling = os.path.join(folder, 'NrRuffle_counted.csv')
     input_sal_per_ruffle = os.path.join(folder, 'SalRuffle_counted.csv')
-    output_file = os.path.join(folder, 'Data_Fig4_13_D.csv')
+    output_file = os.path.join(folder, 'Sal_per_cell.csv')
 
     # 调用处理函数
     process_csv(input_cell_ruffling, input_sal_per_ruffle, output_file)

@@ -177,6 +177,17 @@ def process_plot_data(folder_data, input_folder):
     # 绘制折线图
     plt.figure(figsize=(10, 8))
 
+    plt.rcParams.update({
+    'font.size': 18,         # 全局字体大小
+    'axes.labelsize': 22,    # 坐标轴标签字体大小
+    'axes.titlesize': 20,    # 标题字体大小
+    'axes.titleweight': 'bold',
+    'lines.linewidth': 3,    # 折线图线条粗细
+    'lines.markersize': 8,  # 数据点的大小
+    'errorbar.capsize': 5,  # 误差条帽子的大小
+    'legend.fontsize': 16,    # 图例字体大小
+    })
+
     # 提取前缀和对应的平均值和标准偏差
     prefixes = list(average_means.keys())
     prefixes_str = [item.replace('_', '') for item in prefixes]
@@ -213,6 +224,7 @@ def process_plot_data(folder_data, input_folder):
     # 设置x轴和y轴标签
     plt.xlabel("m.o.i.")
     plt.ylabel("number Salmonella per ruffle")
+    # plt.title("C")
 
     # 设置x轴的刻度标签为纯数字
     # plt.xticks(ticks=prefixes, labels=prefixes)

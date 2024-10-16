@@ -160,6 +160,18 @@ def process_plot_data(folder_data, input_folder):
     # 绘制折线图
     plt.figure(figsize=(10, 8))
 
+    # 设置全局字体大小和线条粗细
+    plt.rcParams.update({
+    'font.size': 18,         # 全局字体大小
+    'axes.labelsize': 22,    # 坐标轴标签字体大小
+    'axes.titlesize': 20,    # 标题字体大小
+    'axes.titleweight': 'bold',
+    'lines.linewidth': 3,    # 折线图线条粗细
+    'lines.markersize': 8,  # 数据点的大小
+    'errorbar.capsize': 5,  # 误差条帽子的大小
+    'legend.fontsize': 16,    # 图例字体大小
+    })
+
     # 提取前缀和对应的平均值和标准偏差
     prefixes = list(average_ratios.keys())
     prefixes_str = [item.replace('_', '') for item in prefixes]
@@ -172,23 +184,29 @@ def process_plot_data(folder_data, input_folder):
     if len(prefixes_str) == 8:
         origin_y = [2, 5, 8, 16, 31, 52, 75, 88]
         origin_std_dev = np.array([0, 0, 0, 5, 10, 4, 6, 2])/2
+        # plt.title("A")
     elif len(prefixes_str) == 11:
         origin_y =[3,4,10,18,32,52,77,84,93,94,91]
         origin_std_dev =np.array([0, 0, 8, 14, 18, 22, 22, 12, 4, 6, 12])/2
+        # plt.title("B")
     
     # 绘制平均数的折线图
+    # line_E, =
     plt.errorbar(prefixes_str,origin_y,yerr = origin_std_dev, fmt='-o', color='red', label='Experimental', capsize=5)
     # print('origin_std_dev: ', origin_std_dev)
+    # line_S, =
     plt.errorbar(prefixes_str, avg_values, yerr=std_dev_values, fmt='-o', color='black', label='Simulation', capsize=5)
    
     # 设置x轴和y轴标签
     plt.xlabel("m.o.i.")
     plt.ylabel("% cells ruffling")
-
+    
 
     # 显示图表
     plt.grid(False)
+
     plt.legend()
+    # plt.legend([line_S, line_E], ['Simulation', 'Experimental'])
 
     if len(prefixes_str) == 8:
         plt_output_path = os.path.join(input_folder, 'Figure_4_13_A.png')
